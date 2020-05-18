@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>两列布局</title>
+  <style>
+    .demo-wrapper {
+      /*height: 30px;*/
+      width: 100%;
+    }
+
+    .aside-wrapper {
+      /*height: 100%;*/
+      background: pink;
+      width: 300px;
+    }
+
+    .main-wrapper {
+      /*height: 100%;*/
+      background: #ccc;
+    }
+
+    /*
+    * demo-1 左浮动 右margin
+    */
+    .demo-wrapper-1 .aside-wrapper {
+      float: left;
+    }
+
+    .demo-wrapper-1 .main-wrapper {
+      margin-left: 300px;
+    }
+
+    /*
+    * demo-2 绝对定位
+    */
+    .demo-wrapper-2 {
+      position: relative;
+      /*高度坍塌了*/
+      height: 20px;
+    }
+
+    .demo-wrapper-2 .aside-wrapper {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .demo-wrapper-2 .main-wrapper {
+      position: absolute;
+      left: 300px;
+      top: 0;
+      right: 0;
+    }
+
+    /*
+    * demo-3 calc
+    */
+    .demo-wrapper-3 {
+      /*有一个换行符导致的空隙，要弄掉*/
+      font-size: 0;
+    }
+
+    .demo-wrapper-3 .aside-wrapper {
+      display: inline-block;
+      font-size: 14px;
+    }
+
+    .demo-wrapper-3 .main-wrapper {
+      display: inline-block;
+      width: calc(100% - 300px);
+      font-size: 14px;
+    }
+
+    /*
+    * demo-4 table
+    */
+    .demo-wrapper-4 {
+      display: table;
+    }
+
+    .demo-wrapper-4 .aside-wrapper, .demo-wrapper-4 .main-wrapper {
+      display: table-cell;
+    }
+
+    .demo-wrapper-5 {
+      display: flex;
+    }
+
+    .demo-wrapper-5 .main-wrapper {
+      flex-grow: 1;
+    }
+
+    .demo-wrapper-6 {
+      display: grid;
+      grid-template-columns: 300px auto;
+    }
+
+    .demo-wrapper-6 .aside-wrapper {
+
+    }
+
+  </style>
+</head>
+<body>
+<h1>两列布局</h1>
+
+<div>
+  <h2>左边定宽，右边自适应</h2>
+  <section>
+    <h3>1. 左边浮动，右边 margin left</h3>
+    <div class="demo-wrapper demo-wrapper-1">
+      <div class="aside-wrapper">左边浮动</div>
+      <div class="main-wrapper">右边用 margin left。
+        如果不写margin left 300，右边内容太多，高度超出左边的时候，下面的内容会飘到左边去，要加个overflow:hidden。<br>
+        不写margin left 300（而是写overflow:hidden）可以实现左边不定宽，右边自适应。
+      </div>
+    </div>
+  </section>
+  <section>
+    <h3>2. 绝对定位</h3>
+    <div class="demo-wrapper demo-wrapper-2">
+      <div class="aside-wrapper">绝对定位</div>
+      <div class="main-wrapper">绝对定位</div>
+    </div>
+  </section>
+  <section>
+    <h3>3. calc</h3>
+    <div class="demo-wrapper demo-wrapper-3">
+      <div class="aside-wrapper">左边</div>
+      <div class="main-wrapper">右边 dispaly:inline-block width:calc(100% - 300px)</div>
+    </div>
+  </section>
+  <section>
+    <h3>4. table</h3>
+    <p>父元素 display:table; </p>
+    <div class="demo-wrapper demo-wrapper-4">
+      <div class="aside-wrapper">左右都display:table-cell;</div>
+      <div class="main-wrapper">右边 dispaly:inline-block width:calc(100% - 300px)</div>
+    </div>
+  </section>
+  <section>
+    <h3>5. flex</h3>
+    <p>父元素 display:flex; </p>
+    <div class="demo-wrapper demo-wrapper-5">
+      <div class="aside-wrapper">左边</div>
+      <div class="main-wrapper">右边 flex-grow: 1; 撑满剩余的宽度</div>
+    </div>
+  </section>
+  <section>
+    <h3>6. grid</h3>
+    <p>父元素 display: grid; grid-template-columns: 300px auto; </p>
+    <div class="demo-wrapper demo-wrapper-6">
+      <div class="aside-wrapper">左边</div>
+      <div class="main-wrapper">右边</div>
+    </div>
+  </section>
+
+</div>
+<div>
+  <h2>左边不定宽，右边自适应</h2>
+
+</div>
+
+</body>
+</html>
