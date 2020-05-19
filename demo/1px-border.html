@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端1像素 border 问题</title>
+  <style>
+    .page-wrapper {
+      width: 80%;
+      margin: auto;
+      padding-top: 20px;
+      color: #333;
+    }
+
+    .border-media-query {
+      border: 1px solid #999;
+    }
+
+    @media screen and (-webkit-min-device-pixel-ratio: 2) {
+      .border-media-query {
+        border-bottom: 0.5px solid #999;
+      }
+    }
+
+    @media screen and (-webkit-min-device-pixel-ratio: 3) {
+      .border-media-query {
+        border-bottom: 0.333333px solid #999;
+      }
+    }
+
+    .border-image-1px {
+      border-width: 1px 0px;
+      -webkit-border-image: url("../img/border.png") 2 0 stretch;
+      border-image: url("../img/border.png") 2 0 stretch;
+      border-image: url("../img/border.png");
+    }
+
+    .border-box-shadow {
+      box-shadow: inset 0px -1px 1px -1px black;
+    }
+
+    .border-linear-gradient {
+      background-image: linear-gradient(180deg, black, black 50%, transparent 50%),
+      linear-gradient(270deg, black, black 50%, transparent 50%),
+      linear-gradient(0deg, black, black 50%, transparent 50%),
+      linear-gradient(90deg, black, black 50%, transparent 50%);
+      background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+      background-repeat: no-repeat;
+      background-position: top, right top, bottom, left top;
+    }
+
+    .border-transform:after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 100%;
+      background: #000;
+      transform: scaleY(0.5);
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <h1 class="page-title">移动端1像素 border 问题</h1>
+  <p>css中的1px并不等于移动设备的1px，因为不同的手机有不同的像素密度。 </p>
+  <p>在window对象中有一个devicePixelRatio属性，它可以反应css中的像素与设备的像素比。</p>
+  <p>devicePixelRatio的官方的定义为：设备物理像素和设备独立像素的比例，也就是 devicePixelRatio = 物理像素 / 独立像素。</p>
+  <section>
+    <h2 class="section-title">1. 媒体查询</h2>
+    <div class="section-content">
+      <div class="border border-media-query">
+        @media screen and (-webkit-min-device-pixel-ratio: 2)
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">2. border-image</h2>
+    <div class="section-content">
+      <div class="border-image-1px">需要一张高度2px，上面一像素透明，下面1像素有颜色的图片。我的ps坏了，暂时弄不了~~ @TODO</div>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">3. box-shadow</h2>
+    <div class="section-content">
+      <div class="border-box-shadow">
+        box-shadow: inset 0px -1px 1px -1px black;
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">4. background linear-gradient 渐变</h2>
+    <div class="section-content">
+      <div class="border-linear-gradient">
+        设置1px的渐变背景，50%有颜色，50%透明。
+      </div>
+      <p>这种方法有个缺点，不能实现圆角</p>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">5. transform</h2>
+    <div class="section-content">
+      <div class="border-transform">
+        transform: scaleY(0.5);
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">6. viewport + rem </h2>
+    <div class="section-content">
+      <div class="border-viewport">
+      </div>
+      <p>
+        设置对应viewport的rem基准值，然后可以正常写 border 1px。 <br>
+        在devicePixelRatio = 2 时，输出viewport：
+        <xmp><meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no"></xmp>
+        在devicePixelRatio = 3 时，输出viewport： <br>
+        <xmp><meta name="viewport" content="initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no"></xmp>
+        这种兼容方案相对比较完美，适合新的项目，老的项目修改成本过大
+      </p>
+    </div>
+  </section>
+</div>
+</body>
+</html>
