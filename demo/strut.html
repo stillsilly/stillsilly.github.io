@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+  <title>幽灵空白节点</title>
+  <style>
+    .page-wrapper {
+      width: 80%;
+      margin: auto;
+      padding-top: 20px;
+      padding-bottom: 50px;
+      color: #333;
+    }
+
+    .strut-demo-wrapper, .strut-demo-fixed {
+      background: #ddd;
+    }
+
+    .strut-demo-fixed img {
+      vertical-align: top;
+      /*vertical-align: bottom;*/
+      /*vertical-align: middle;*/
+      /*display: block;*/
+    }
+
+    .strut-demo-fixed {
+      /*font-size: 0;*/
+      /*line-height: 0;*/
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <h1 class="page-title">幽灵空白节点</h1>
+  <div class="strut-demo-wrapper">
+    <img src="../img/peppa.png" alt="peppa">
+  </div>
+  <p>可以看到上面的图片的底部和父元素背景色的底部之间，有5像素的间隙。（图片高度194px，由内容自动撑起高度的父元素高度199px。）</p>
+  <p>这是因为里面有个strut元素，也叫"幽灵空白节点"</p>
+  <p>参考资料：</p>
+  <p><a href="https://segmentfault.com/q/1010000014296346/a-1020000016143232">内联盒子,幽灵空白节点的问题</a></p>
+  <p><a href="https://segmentfault.com/q/1010000010207212">没有高度的inline-block，父元素却有高度</a></p>
+  <p><a href="https://www.w3.org/TR/CSS22/visudet.html#strut">10.8 Line height calculations: the 'line-height' and
+    'vertical-align' properties</a></p>
+  <h5>解决办法：</h5>
+  <p>父元素：font-size: 0; line-height: 0; </p>
+  <p>子元素：vertical-align: top; vertical-align: bottom; vertical-align: middle; display: block;</p>
+  <p>改一个就行</p>
+  <div class="strut-demo-fixed">
+    <img src="../img/peppa.png" alt="peppa">
+  </div>
+</div>
+
+</body>

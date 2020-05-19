@@ -11,6 +11,7 @@
       width: 80%;
       margin: auto;
       padding-top: 20px;
+      padding-bottom: 50px;
       color: #333;
     }
 
@@ -114,9 +115,14 @@
       <p>
         设置对应viewport的rem基准值，然后可以正常写 border 1px。 <br>
         在devicePixelRatio = 2 时，输出viewport：
-        <xmp><meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no"></xmp>
+        <xmp>
+          <meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+        </xmp>
         在devicePixelRatio = 3 时，输出viewport： <br>
-        <xmp><meta name="viewport" content="initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no"></xmp>
+        <xmp>
+          <meta name="viewport"
+                content="initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no">
+        </xmp>
         这种兼容方案相对比较完美，适合新的项目，老的项目修改成本过大
       </p>
     </div>
